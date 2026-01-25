@@ -46,9 +46,12 @@ static t_node	*fill_stack(int argc, char **argv)
 		if (!str)
 			error_exit(a);
 		tmp = init_a(str, a);
-		free_str(str);
 		if (!tmp)
+		{
+			free_str(str);
 			error_exit(a);
+		}
+		free_str(str);
 		a = tmp;
 		i++;
 	}

@@ -12,32 +12,34 @@
 
 #include "push_swap.h"
 
-static t_node	*create_node(char *data, t_node *stack_a)
+static t_node	*create_node(char *data)
 {
 	t_node	*a;
 	int		err;
 
 	a = malloc(sizeof(t_node));
 	if (!a)
-		error_exit(stack_a);
+		return (NULL);
 	a->data = ft_atoi(data, &err);
 	if (err)
 	{
 		free(a);
-		error_exit(stack_a);
+		return (NULL);
 	}
 	a->next = NULL;
 	a->prev = NULL;
 	return (a);
 }
 
-static t_node	*add_nodes(char **str, int i, t_node *n, t_node *stack_a)
+static t_node	*add_nodes(char **str, int i, t_node *n)
 {
 	t_node	*a;
 
 	while (str[i])
 	{
-		a = create_node(str[i], stack_a);
+		a = create_node(str[i]);
+		if (!a)
+			return (NULL);
 		a->prev = n;
 		n->next = a;
 		n = a;
@@ -56,12 +58,15 @@ t_node	*init_a(char **str, t_node *n)
 	i = 0;
 	if (n == NULL)
 	{
-		n = create_node(str[0], n);
+		n = create_node(str[0]);
+		if (!n)
+			return (NULL);
 		i++;
 	}
 	s = n;
 	while (n->next != NULL)
 		n = n->next;
-	add_nodes(str, i, n, s);
+	if (!add_nodes(str, i, n))
+		return (NULL);
 	return (s);
 }
