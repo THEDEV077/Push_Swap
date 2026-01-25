@@ -67,6 +67,9 @@ t_node	*init_a(char **str, t_node *n)
 	while (n->next != NULL)
 		n = n->next;
 	if (!add_nodes(str, i, n))
+	{
+		free_stack(s);
 		return (NULL);
+	}
 	return (s);
 }
