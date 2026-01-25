@@ -1,0 +1,10 @@
+# Object files
+*.o
+
+# Executable
+push_swap
+a.out
+
+# Build artifacts
+*.a
+*.so
