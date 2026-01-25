@@ -6,52 +6,52 @@
 /*   By: ysahnoun <ysahnoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 18:06:46 by ysahnoun          #+#    #+#             */
-/*   Updated: 2026/01/24 12:45:30 by ysahnoun         ###   ########.fr       */
+/*   Updated: 2026/01/24 14:01:35 by ysahnoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static node *deleteTop(node **a)
+static t_node	*delete_top(t_node **a)
 {
-    node    *b;
+	t_node	*tmp;
 
-    if (!a || !(*a))
-        return (NULL);
-    b = (*a);
-    (*a) = (*a)->next;
-    if ((*a))
-        (*a)->prev = NULL;
-    return (b);
+	if (!a || !*a)
+		return (NULL);
+	tmp = *a;
+	*a = (*a)->next;
+	if (*a)
+		(*a)->prev = NULL;
+	return (tmp);
 }
 
-static void addnodeTop(node **a, node *n)
+static void	add_node_top(t_node **a, t_node *n)
 {
-    if (!a || !n)
-        return ;
-    n->next = *a;
-    n->prev = NULL;
-    if (*a)
-        (*a)->prev = n;
-    (*a) = n;
+	if (!a || !n)
+		return ;
+	n->next = *a;
+	n->prev = NULL;
+	if (*a)
+		(*a)->prev = n;
+	*a = n;
 }
 
-void push(node **a, node **b)
+static void	push(t_node **a, t_node **b)
 {
-    node    *tmp;
+	t_node	*tmp;
 
-    tmp = deleteTop(a);
-    addnodeTop(b, tmp);
+	tmp = delete_top(a);
+	add_node_top(b, tmp);
 }
 
-void pa(node **a, node **b)
+void	pa(t_node **a, t_node **b)
 {
-    push(b, a);
-    write(1, "pa\n", 3);
+	push(b, a);
+	write(1, "pa\n", 3);
 }
 
-void pb(node **a, node **b)
+void	pb(t_node **a, t_node **b)
 {
-    push(a, b);
-    write(1, "pb\n", 3);
+	push(a, b);
+	write(1, "pb\n", 3);
 }

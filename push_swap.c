@@ -6,125 +6,78 @@
 /*   By: ysahnoun <ysahnoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:07:30 by ysahnoun          #+#    #+#             */
-/*   Updated: 2026/01/24 13:10:20 by ysahnoun         ###   ########.fr       */
+/*   Updated: 2026/01/25 11:47:33 by ysahnoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void PrintErreur(void)
+void	free_stack(t_node *a)
 {
-    write(1, "Error\n", 6);
+	t_node	*tmp;
+
+	while (a)
+	{
+		tmp = a->next;
+		free(a);
+		a = tmp;
+	}
 }
 
-int isDup(node *a)
+void	error_exit(t_node *a)
 {
-    node    *tmp1;
-    node    *tmp2;
-
-    tmp1 = a;
-    while (tmp1)
-    {
-        tmp2 = tmp1->next;
-        while (tmp2)
-        {
-            if (tmp2->data == tmp1->data)
-                return (1);
-            tmp2 = tmp2->next;
-        }
-        tmp1 = tmp1->next;
-    }
-    return (0);
+	free_stack(a);
+	print_erreur();
+	exit(1);
 }
 
-int isEmpty(node *a)
+static t_node	*fill_stack(int argc, char **argv)
 {
-    int l;
+	int		i;
+	char	**str;
+	t_node	*a;
+	t_node	*tmp;
 
-    l = len(a);
-    if (l == 0)
-        return (1);
-    else
-        return (0);
+	a = NULL;
+	i = 1;
+	while (i < argc)
+	{
+		str = ft_split(argv[i], ' ');
+		if (!str)
+			error_exit(a);
+		tmp = init_a(str, a);
+		free_str(str);
+		if (!tmp)
+			error_exit(a);
+		a = tmp;
+		i++;
+	}
+	return (a);
 }
 
-int isSorted(node *a)
+int	main(int argc, char **argv)
 {
-    if (!a)
-        return (1);
-    while (a && a->next)
-    {
-        if (a->index > a->next->index)
-            return (0);
-        a = a->next;
-    }
-    return (1);
-}
+	t_node	*a;
+	t_node	*b;
 
-void free_stack(node *a)
-{
-    node    *tmp;
-
-    while (a)
-    {
-        tmp = a->next;
-        free(a);
-        a = tmp;
-    }
-}
-
-void freeStr(char **str)
-{
-    int i;
-
-    i = 0;
-    while (str && str[i])
-    {
-        free(str[i]);
-        i++;
-    }
-    free(str);
-}
-
-
-
-int main(int argc, char *argv[])
-{
-    int     i;
-    node    *a;
-    node    *b;
-    char    **str;
-
-    if (argc < 2)
-        return (0);
-    i = 1;
-    a = NULL;
-    b = NULL;
-    while (argv[i])
-    {
-        str = ft_split(argv[i], ' ');
-        a = initA(str, a);
-        freeStr(str);
-        if (!a)
-        {
-            PrintErreur();
-            exit(1);
-        }
-        i++;
-    }
-    if (isDup(a) || isEmpty(a))
-    {
-        PrintErreur();
-        free_stack(a);
-        exit(1);
-    }
-    sortNode(&a);
-    if (isSorted(a))
-    {
-        free_stack(a);
-        exit(0);
-    }
-    chunk(&a, &b);
-    free_stack(a);
-    return (0);
+	if (argc < 2)
+		return (0);
+	a = fill_stack(argc, argv);
+	b = NULL;
+	if (is_dup(a) || is_empty(a))
+	{
+		print_erreur();
+		free_stack(a);
+		exit(1);
+	}
+	sort_node(&a);
+	if (is_sorted(a))
+	{
+		free_stack(a);
+		exit(0);
+	}
+	chunk(&a, &b);
+	free_stack(a);
+	free_stack(b);
+	return (0);
 }
