@@ -6,7 +6,7 @@
 /*   By: ysahnoun <ysahnoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 16:30:05 by ysahnoun          #+#    #+#             */
-/*   Updated: 2026/01/25 12:09:28 by ysahnoun         ###   ########.fr       */
+/*   Updated: 2026/01/25 14:56:09 by ysahnoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ static t_node	*create_node(char *data, t_node *stack_a)
 	return (a);
 }
 
-static t_node	*add_nodes(char **str, int i, t_node *n, t_node *stack_a)
+static void	add_nodes(char **str, int i, t_node *n, t_node *stack_a)
 {
 	t_node	*a;
-	t_node	*s;
 
-	s = n;
 	while (str[i])
 	{
 		a = create_node(str[i], stack_a);
@@ -45,14 +43,12 @@ static t_node	*add_nodes(char **str, int i, t_node *n, t_node *stack_a)
 		n = a;
 		i++;
 	}
-	return (n);
 }
 
 t_node	*init_a(char **str, t_node *n)
 {
 	int		i;
 	t_node	*s;
-	t_node	*e;
 
 	if (!str || !str[0])
 		return (n);
@@ -65,6 +61,6 @@ t_node	*init_a(char **str, t_node *n)
 	s = n;
 	while (n->next != NULL)
 		n = n->next;
-	e = add_nodes(str, i, n, s);
+	add_nodes(str, i, n, s);
 	return (s);
 }
