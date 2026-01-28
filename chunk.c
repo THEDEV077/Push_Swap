@@ -84,9 +84,7 @@ void	chunk(t_node **a, t_node **b)
 	int	l;
 
 	l = len(*a);
-	if (l <= 1)
-		return ;
-	else if (l == 2 && (*a)->index > (*a)->next->index)
+	if (l == 2 && (*a)->index > (*a)->next->index)
 		sa(a);
 	else if (l == 2)
 		return ;

@@ -1,0 +1,11 @@
+# Object files
+*.o
+
+# Executable
+push_swap
+
+# Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
