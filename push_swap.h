@@ -6,7 +6,7 @@
 /*   By: ysahnoun <ysahnoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:07:35 by ysahnoun          #+#    #+#             */
-/*   Updated: 2026/01/25 11:44:34 by ysahnoun         ###   ########.fr       */
+/*   Updated: 2026/01/26 22:30:07 by ysahnoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int		is_sorted(t_node *a);
 void	free_stack(t_node *a);
 void	node_to_top_b(t_node **a, int pos);
 void	error_exit(t_node *a);
+void	error_exit_str(char **str);
 
 #endif

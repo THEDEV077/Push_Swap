@@ -6,7 +6,7 @@
 /*   By: ysahnoun <ysahnoun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 13:07:30 by ysahnoun          #+#    #+#             */
-/*   Updated: 2026/01/25 11:47:33 by ysahnoun         ###   ########.fr       */
+/*   Updated: 2026/01/28 09:49:03 by ysahnoun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,22 @@ void	error_exit(t_node *a)
 	exit(1);
 }
 
+static int	is_only_spaces(const char *s)
+{
+	int	i;
+
+	if (!s || s[0] == '\0')
+		return (1);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != ' ' && (s[i] < 9 || s[i] > 13))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static t_node	*fill_stack(int argc, char **argv)
 {
 	int		i;
@@ -42,13 +58,15 @@ static t_node	*fill_stack(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		if (is_only_spaces(argv[i]))
+			error_exit(a);
 		str = ft_split(argv[i], ' ');
 		if (!str)
 			error_exit(a);
 		tmp = init_a(str, a);
-		free_str(str);
 		if (!tmp)
-			error_exit(a);
+			error_exit_str(str);
+		free_str(str);
 		a = tmp;
 		i++;
 	}
